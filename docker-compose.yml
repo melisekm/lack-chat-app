@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend:
+    container_name: lack-be
+    build: ./lack-backend
+    ports:
+      - "3333:3333"
+  postgresql:
+    container_name: postgres13
+    image: "postgres:13"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: lack
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - lack-data:/var/lib/postgresql/data
+    ports:
+        - "5432:5432"  
+  frontend:
+    container_name: lack-fe
+    build: ./lack-frontend  
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+volumes:
+  lack-data:
