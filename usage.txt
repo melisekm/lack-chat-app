@@ -7,7 +7,7 @@ where the {name_of_container} is the backend server container
 Run:
 - node ace migration:refresh --seed
 
-restart lack-backend container!
+docker restart {name_of_container}
 
 Locally installed apps
 lack-backend
