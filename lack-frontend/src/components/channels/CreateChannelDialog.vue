@@ -60,7 +60,10 @@ export default defineComponent({
         if (!channelName.value || channelName.value.trim().length === 0) {
           return
         }
-        store.dispatch('chat/handleCommandAction', `/join ${channelName.value} ${publicity.value}`)
+        store.dispatch('chat/addMessage', {
+          channel: store.state.chat.selectedChannel,
+          message: `/join ${channelName.value} ${publicity.value}`
+        })
           .then(() => {
             onDialogOK()
           })

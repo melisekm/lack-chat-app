@@ -69,7 +69,6 @@ export const getMessageNotification = (message: SerializedMessage, channel: stri
 }
 
 const createAPINotification = (message: SerializedMessage, channel: string) => {
-  console.log(AppVisibility.appVisible)
   if (!AppVisibility.appVisible) {
     // eslint-disable-next-line no-new
     new Notification(`${message.author.nickname} (#${channel})`, {

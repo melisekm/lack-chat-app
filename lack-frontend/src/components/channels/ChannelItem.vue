@@ -82,11 +82,17 @@ export default defineComponent({
     }
 
     const openLeaveChannelDialog = async () => {
-      await store.dispatch('chat/handleCommandAction', `/cancel ${props.channel.name}`)
+      await store.dispatch('chat/addMessage', {
+        channel: store.state.chat.selectedChannel,
+        message: `/cancel ${props.channel.name}`
+      })
     }
 
     const openDeleteChannelDialog = async () => {
-      await store.dispatch('chat/handleCommandAction', `/quit ${props.channel.name}`)
+      await store.dispatch('chat/addMessage', {
+        channel: store.state.chat.selectedChannel,
+        message: `/quit ${props.channel.name}`
+      })
     }
 
     return {

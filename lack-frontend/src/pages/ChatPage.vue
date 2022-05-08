@@ -31,10 +31,8 @@ export default defineComponent({
     const route = useRoute()
     onMounted(async () => {
       const routeName = route.params.name as string
-      console.log('route name', routeName)
       const success = await store.dispatch('chat/getUserChannels', routeName)
       if (!success) {
-        console.log('failed to get channels, pushing 404')
         await router.push({ path: '/404' })
       }
     })

@@ -17,7 +17,6 @@ class ChannelSocketManager extends SocketManager {
         const showOnlyAddressedToMe = store.state.ui.showNotificationsAddressedToMe
         // ak to nemam nastavene tak ukaz, ak to mam nastavene pozri sa ci obsahuje moje meno
         const showNotification = !showOnlyAddressedToMe || message.content.includes(store.state.auth.user!.nickname)
-        console.log(showNotification)
         if (showNotification) {
           getMessageNotification(message, channel)
         }
@@ -26,7 +25,6 @@ class ChannelSocketManager extends SocketManager {
     })
 
     this.socket.on('userJoined', (user: SerializedUser) => {
-      console.log('userJoined CHANNEL SERVICE', user)
       if (user.id !== store.state.auth.user!.id) {
         store.commit('chat/USER_JOINED', { channel, user })
       }
@@ -47,11 +45,9 @@ class ChannelSocketManager extends SocketManager {
 
     this.socket.on('userKick', (user: SerializedUser) => {
       if (user.id === store.state.auth.user!.id) {
-        console.log('userKick CHANNEL SERVICE', user, channel)
         getNegativeNotification('You were kicked from ' + channel)
         store.dispatch('chat/leaveChannelAction', { channel, emit: false })
       } else {
-        console.log('somebody was kicked', user, channel)
         store.commit('chat/USER_LEFT', { channel, user })
       }
     })
@@ -77,6 +73,7 @@ class ChannelSocketManager extends SocketManager {
     return this.emitAsync('typing', message)
   }
 
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   public kickUser (channel: string, user: string, isRevoke: boolean): Promise<any> {
     return this.emitAsync('kickUser', user, isRevoke)
   }
@@ -87,7 +84,6 @@ class ChannelService {
 
   public join (name: string) {
     if (this.channels.has(name)) {
-      console.log(`User is already joined in channel "${name}"`)
       return
     }
 

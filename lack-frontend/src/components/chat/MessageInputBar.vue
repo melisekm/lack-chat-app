@@ -34,7 +34,6 @@ export default defineComponent({
     const store = useStore()
     const newMessage = ref('')
     const selectedChannel = computed(() => store.state.chat.selectedChannel)
-    const loading = ref(false)
 
     onMounted(() => {
       const sendButton = document.getElementsByClassName('sendButton')[0]
@@ -60,8 +59,10 @@ export default defineComponent({
       if (!newMessage.value || newMessage.value.trim() === '') {
         return
       }
-      loading.value = true
-      store.dispatch('chat/addMessage', { channel: selectedChannel.value, message: newMessage.value })
+      store.dispatch('chat/addMessage', {
+        channel: selectedChannel.value,
+        message: newMessage.value
+      })
         .then(() => {
           newMessage.value = ''
         })
@@ -69,15 +70,11 @@ export default defineComponent({
           console.log(e)
           getNegativeNotification('There was an error sending the message')
         })
-        .finally(() => {
-          loading.value = false
-        })
     }
 
     return {
       newMessage,
       selectedChannel,
-      loading,
       sendMessage,
       trimString
     }

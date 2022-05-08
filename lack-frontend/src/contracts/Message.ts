@@ -9,7 +9,7 @@ export interface SerializedMessage {
   author: User
 }
 
-export interface CurrentlyTypedMessage{
+export interface CurrentlyTypedMessage {
   content: string
   user: string
   channel: string
