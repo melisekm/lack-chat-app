@@ -19,7 +19,6 @@ export default class MessagesController {
     const page = query.page || 1
     // null or undefined will be converted
     const date = query.date ?? new Date().toISOString()
-    console.log(`loading page ${page} and messages before  ${date}`)
     const error = checkForErrors(
       {
         channelShouldExist: true,

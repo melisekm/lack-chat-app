@@ -37,30 +37,8 @@ export default class ChannelSeeder extends BaseSeeder {
     await Channel.updateOrCreateMany(uniqueKey, payload)
     let users = await User.query().orderBy('id')
     await users[0].related('channels').attach(setChannels([1, 2]))
-    // await users[0].related('channels').attach([3])
     await users[1].related('channels').attach(setChannels([1, 2, 3]))
     await users[2].related('channels').attach(setChannels([2]))
     await users[3].related('channels').attach(setChannels([1]))
-    // await users[2].related('channels').attach(setChannels([1]))
-    // await users[0].related('channels').sync(setChannels([3]), false)
-
-    // const userChannels = await users[0].related('channels').query()
-    // console.log(userChannels)
-
-    // const firstuser = await User.query()
-    //   .where('id', 1)
-    //   .preload('channels', (query) => {
-    //     query.pivotColumns(['joined_at'])
-    //   })
-    //   .firstOrFail()
-    // console.log(firstuser.channels)
-    // users.forEach((user) => {
-    //   user.channels.forEach((channel) => {
-    //     channel.$extras.pivot_joined_at = new Date()
-    //   })
-    // })
-    // save many
-    // await User.updateOrCreateMany('joined_at', users)
-    // console.log(users[0].channels)
   }
 }

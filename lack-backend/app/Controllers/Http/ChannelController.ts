@@ -85,7 +85,6 @@ export default class ChannelController {
       await this.channelRepository.updateJoinedAt(auth.user!, channel)
       return channel
     } catch (e) {
-      console.log(e)
       return response.status(200).send({
         msg: e.message,
       })

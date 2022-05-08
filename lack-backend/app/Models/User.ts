@@ -16,10 +16,10 @@ export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: null })
   public firstname: string
 
-  @column()
+  @column({ serializeAs: null })
   public surname: string
 
   @column()
@@ -31,7 +31,7 @@ export default class User extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
-  @column()
+  @column({ serializeAs: null })
   public rememberMeToken?: string
 
   @column.dateTime({ autoCreate: true })
@@ -61,9 +61,6 @@ export default class User extends BaseModel {
     pivotRelatedForeignKey: 'channel_id',
     pivotTimestamps: true,
     pivotColumns: ['joined_at'],
-    // onQuery: (query) => {
-    //   query.where('isActive', true)
-    // }
   })
   public channels: ManyToMany<typeof Channel>
 }

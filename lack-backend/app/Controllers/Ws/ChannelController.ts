@@ -47,7 +47,6 @@ export default class ChannelController {
     const user = auth.user!
     const channel = await this.channelRepository.findByName(channelName)
     if (channel.adminId === user.id) {
-      console.log('channel admin left - deleting channel')
       await this.channelRepository.delete(channel)
       socket.nsp.emit('channelDeleted', channel.name)
     } else {
@@ -58,7 +57,6 @@ export default class ChannelController {
 
   public async deleteChannel({ auth, params, socket }: WsContextContract) {
     const channelName = params.name
-    console.log('deleteChannel', channelName)
     const user = auth.user!
     const channel = await this.channelRepository.findByName(channelName)
     const errParams = {
@@ -80,7 +78,6 @@ export default class ChannelController {
     channelParam: string,
     userParam: string
   ) {
-    console.log('inviteUser', channelParam, userParam)
     const channel = await this.channelRepository.findByName(channelParam)
     const userToGetInvited = await this.userRepository.findByNickname(userParam)
     const error = checkForErrors(
@@ -114,7 +111,6 @@ export default class ChannelController {
       }
     } else {
       // unban user
-      console.log('unban user', userToGetInvited!.id, channel.id)
       await this.kickRepository.deleteAllByUserIdAndChannelId(
         userToGetInvited!.id,
         channel.id
@@ -134,7 +130,6 @@ export default class ChannelController {
     userParam: string,
     isRevoke: boolean
   ) {
-    console.log('kickUser', userParam)
     const kicker = auth.user!
     const channel = await this.channelRepository.findByName(params.name)
     const userToKick = await this.userRepository.findByNickname(userParam)

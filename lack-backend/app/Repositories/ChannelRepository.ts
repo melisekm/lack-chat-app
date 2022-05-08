@@ -7,7 +7,6 @@ import User from 'App/Models/User'
 
 export default class ChannelRepository implements ChannelRepositoryContract {
   public async findByName(channelName: string): Promise<Channel> {
-    console.log('finding channel by name', channelName)
     return await Channel.query()
       .where('name', channelName)
       .preload('users')
@@ -39,7 +38,6 @@ export default class ChannelRepository implements ChannelRepositoryContract {
     isPublic: boolean,
     channelName: string
   ): Promise<Channel> {
-    console.log('creating channel', channelName)
     return await user.related('channels').create({
       name: channelName,
       isPublic: isPublic,
@@ -48,12 +46,10 @@ export default class ChannelRepository implements ChannelRepositoryContract {
   }
 
   public async attachUser(user: User, channel: Channel): Promise<void> {
-    console.log('attaching user to channel', user.id, channel.name)
     await channel.related('users').attach([user.id])
   }
 
   public async detachUser(user: User, channel: Channel): Promise<void> {
-    console.log('detaching user from channel', user.id, channel.name)
     await channel.related('users').detach([user.id])
   }
 
