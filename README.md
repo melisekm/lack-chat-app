@@ -5,9 +5,7 @@ Slack clone full stack app
 ### Used technologies:
 - Back-end: AdonisJS, PostgreSQL
 - Front-end: Vue.js - Quasar - SPA
-- Socket.io modification for websocket message sending
-
-
+- Socket.io modification for websocket instant message sending
 
 ## Docker installation
 ```docker-compose up --build -d```
@@ -47,7 +45,7 @@ passwords are: 123456
 - Actions can be performed with commands or through the UI
 - Channels
   - Create channel \[public, private]
-  - Join channel - `/join channelName \[private]`
+  - Join channel - `/join channelName [private]`
   - Leave channel - `/cancel`
   - Delete channel - `/quit`
   - Show users - `/list`
